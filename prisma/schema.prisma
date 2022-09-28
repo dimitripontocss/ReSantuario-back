@@ -71,12 +71,12 @@ model IngredientRecipe {
 }
 
 model Ingredient {
-  id          Int    @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   name        String
-  kCalPerG    String
-  proteinPerG String
-  carbsPerG   String
-  lipidPerG   String
+  kCalPerG    String?
+  proteinPerG String?
+  carbsPerG   String?
+  lipidPerG   String?
 
   ingredientsRecipes IngredientRecipe[]
 
