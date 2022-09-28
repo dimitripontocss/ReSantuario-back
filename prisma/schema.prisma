@@ -55,6 +55,7 @@ model Recipe {
   categoryRecipe     CategoryRecipe[]
   ingredientsRecipes IngredientRecipe[]
 
+  @@unique([title, userId])
   @@map("recipes")
 }
 
