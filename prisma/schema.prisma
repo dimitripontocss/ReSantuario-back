@@ -11,22 +11,74 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  userName String @unique
-  email    String @unique
-  password String
+  id             Int     @id @default(autoincrement())
+  userName       String  @unique
+  email          String  @unique
+  password       String
+  profilePicture String?
 
-  profilePictures profilePicture?
+  recipes Recipe[]
 
   @@map("users")
 }
 
-model profilePicture {
-  id     Int    @id @default(autoincrement())
-  userId Int    @unique
-  name   String
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  categoryRecipe CategoryRecipe[]
+
+  @@map("categories")
+}
+
+model CategoryRecipe {
+  id         Int @id @default(autoincrement())
+  categoryId Int
+  recipeId   Int @unique
+
+  categories Category @relation(fields: [categoryId], references: [id])
+  recipes    Recipe   @relation(fields: [recipeId], references: [id])
+
+  @@map("categories_recipes")
+}
+
+model Recipe {
+  id           Int    @id @default(autoincrement())
+  pictureUrl   String
+  title        String
+  instructions String
+  difficulty   Int
+  userId       Int
 
   users User @relation(fields: [userId], references: [id])
 
-  @@map("profile-picture")
+  categoryRecipe     CategoryRecipe[]
+  ingredientsRecipes IngredientRecipe[]
+
+  @@map("recipes")
+}
+
+model IngredientRecipe {
+  id           Int    @id @default(autoincrement())
+  amount       String
+  ingredientId Int?
+  recipeId     Int?
+
+  ingredient Ingredient? @relation(fields: [ingredientId], references: [id])
+  recipe     Recipe?     @relation(fields: [recipeId], references: [id])
+
+  @@map("ingredients_recipes")
+}
+
+model Ingredient {
+  id          Int    @id @default(autoincrement())
+  name        String
+  kCalPerG    String
+  proteinPerG String
+  carbsPerG   String
+  lipidPerG   String
+
+  ingredientsRecipes IngredientRecipe[]
+
+  @@map("ingredients")
 }
