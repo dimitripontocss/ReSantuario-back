@@ -20,3 +20,7 @@ export async function addNutritionalTable(recipeId: number, ingredients: any) {
     lipid: String(lipid),
   });
 }
+
+export async function getNutritionalTableByRecipeId(recipeId: number) {
+  return await nutritionalTableRepository.findNTableByRecipeId(recipeId);
+}

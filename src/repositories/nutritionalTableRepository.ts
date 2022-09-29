@@ -8,3 +8,9 @@ export async function createNutritionalTable(
     data: nutritionalTable,
   });
 }
+
+export async function findNTableByRecipeId(recipeId: number) {
+  return await prisma.nutritionalTable.findFirst({
+    where: { recipeId },
+  });
+}
