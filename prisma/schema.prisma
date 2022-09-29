@@ -71,7 +71,7 @@ model NutritionalTable {
   protein  String?
   carbs    String?
   lipid    String?
-  recipeId Int
+  recipeId Int     @unique
 
   recipes Recipe @relation(fields: [recipeId], references: [id])
 
