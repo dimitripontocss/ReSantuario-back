@@ -28,6 +28,11 @@ export async function findSingleUserByUsername(userName: string) {
 export async function findUserById(id: number) {
   const result = await prisma.user.findUnique({
     where: { id },
+    select: {
+      id: true,
+      userName: true,
+      profilePicture: true,
+    },
   });
   return result;
 }

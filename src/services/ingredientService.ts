@@ -13,6 +13,22 @@ export async function verifyIngredients(ingredients: IIngredient[]) {
   return ingredientsWInfo;
 }
 
+export async function getAllIngredientsForRecipe(recipeId: number) {
+  const result = await ingredientRepository.getIngredientsByRecipeId(recipeId);
+  return formatIngredients(result);
+}
+
+function formatIngredients(ingredients: any): IIngredient[] {
+  let formatedIngredients = [];
+  for (const ingredient of ingredients) {
+    formatedIngredients.push({
+      amount: ingredient.amount,
+      name: ingredient.ingredient.name,
+    });
+  }
+  return formatedIngredients;
+}
+
 async function getIngredientInfo(ingredient: IIngredient) {
   const possibleIngredient = await ingredientRepository.getIngredientByName(
     ingredient.name.toLowerCase()

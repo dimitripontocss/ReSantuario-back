@@ -10,3 +10,17 @@ export async function addIngredient(newIngredient: TIngredient) {
   const result = await prisma.ingredient.create({ data: newIngredient });
   return result;
 }
+
+export async function getIngredientsByRecipeId(recipeId: number) {
+  return await prisma.ingredientRecipe.findMany({
+    where: { recipeId },
+    select: {
+      amount: true,
+      ingredient: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+}

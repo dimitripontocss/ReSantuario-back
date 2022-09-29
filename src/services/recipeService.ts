@@ -4,6 +4,8 @@ import * as recipeRepository from "../repositories/recipeRepository";
 import * as categoryService from "./categoryService";
 import * as ingredientService from "./ingredientService";
 import * as nutritionalTableService from "./nutritionalTableService";
+import * as scoreService from "./scoreService";
+import * as userService from "./userService";
 
 export async function addNewRecipe(userId: number, newRecipe: INewRecipeData) {
   const alreadyExist = await recipeRepository.findRecipeByTitleAndUserId(
@@ -21,23 +23,39 @@ export async function addNewRecipe(userId: number, newRecipe: INewRecipeData) {
   const ingredientsWInfo = await ingredientService.verifyIngredients(
     newRecipe.ingredients
   );
-  const sendableRecipe = {
+
+  const addedRecipe = await recipeRepository.createNewRecipe({
     title: newRecipe.title,
     categoryId,
     userId,
     pictureUrl: newRecipe.pictureUrl,
     instructions: newRecipe.instructions,
     difficulty: newRecipe.difficulty,
-  };
-  const addedRecipe = await recipeRepository.createNewRecipe(sendableRecipe);
+  });
   const addedNutritionalTable =
     await nutritionalTableService.addNutritionalTable(
       addedRecipe.id,
       ingredientsWInfo
     );
 
-  relateIngredientsWithRecipe(ingredientsWInfo, addedRecipe.id);
+  await relateIngredientsWithRecipe(ingredientsWInfo, addedRecipe.id);
   return { addedRecipe, addedNutritionalTable };
+}
+
+export async function getRecipeInfo(recipeId: number) {
+  const possibleRecipe = await recipeRepository.findRecipeById(recipeId);
+  if (!possibleRecipe) {
+    throw {
+      name: "not_found",
+      message: "Receita não foi encontrada",
+    };
+  }
+  const ingredients = await ingredientService.getAllIngredientsForRecipe(
+    possibleRecipe.id
+  );
+  const score = await scoreService.getScoreByRecipeId(possibleRecipe.id);
+  const user = await userService.findPossibleUserById(possibleRecipe.userId);
+  return { mainInfo: possibleRecipe, userInfo: user, ingredients, score };
 }
 
 async function relateIngredientsWithRecipe(

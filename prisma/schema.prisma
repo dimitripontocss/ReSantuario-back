@@ -42,6 +42,7 @@ model Scores {
   users   User   @relation(fields: [userId], references: [id])
   recipes Recipe @relation(fields: [recipeId], references: [id])
 
+  @@unique([userId, recipeId])
   @@map("scores")
 }
 

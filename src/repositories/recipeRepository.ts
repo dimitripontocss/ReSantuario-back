@@ -15,6 +15,14 @@ export async function findRecipeByTitleAndUserId(
   });
 }
 
+export async function findRecipeById(id: number) {
+  return await prisma.recipe.findFirst({
+    where: {
+      id,
+    },
+  });
+}
+
 export async function createNewRecipe(newRecipe: TRecipe) {
   return await prisma.recipe.create({
     data: newRecipe,
