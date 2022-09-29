@@ -18,6 +18,7 @@ model User {
   profilePicture String?
 
   recipes Recipe[]
+  Scores  Scores[]
 
   @@map("users")
 }
@@ -29,6 +30,19 @@ model Category {
   Recipe Recipe[]
 
   @@map("categories")
+}
+
+model Scores {
+  id    Int @id @default(autoincrement())
+  score Int
+
+  userId   Int
+  recipeId Int
+
+  users   User   @relation(fields: [userId], references: [id])
+  recipes Recipe @relation(fields: [recipeId], references: [id])
+
+  @@map("scores")
 }
 
 model Recipe {
@@ -45,6 +59,7 @@ model Recipe {
 
   ingredientsRecipes IngredientRecipe[]
   nutritionalTable   NutritionalTable[]
+  Scores             Scores[]
 
   @@unique([title, userId])
   @@map("recipes")
