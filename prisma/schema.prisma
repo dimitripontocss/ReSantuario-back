@@ -44,9 +44,23 @@ model Recipe {
   users      User     @relation(fields: [userId], references: [id])
 
   ingredientsRecipes IngredientRecipe[]
+  nutritionalTable   NutritionalTable[]
 
   @@unique([title, userId])
   @@map("recipes")
+}
+
+model NutritionalTable {
+  id       Int     @id @default(autoincrement())
+  kCal     String?
+  protein  String?
+  carbs    String?
+  lipid    String?
+  recipeId Int
+
+  recipes Recipe @relation(fields: [recipeId], references: [id])
+
+  @@map("nutritional_table")
 }
 
 model IngredientRecipe {
