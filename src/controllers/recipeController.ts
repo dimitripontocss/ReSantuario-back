@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 
-export async function addNewRecipe(req: Request, res: Response) {
-  const user = res.locals.user;
+import * as recipeService from "../services/recipeService";
 
-  res.sendStatus(201);
+export async function addNewRecipe(req: Request, res: Response) {
+  const { id: userId } = res.locals.user;
+  const newRecipe = req.body;
+  const registeredRecipe = await recipeService.addNewRecipe(userId, newRecipe);
+  res.status(201).send(registeredRecipe);
 }
+export async function getAllRecipes() {}
