@@ -26,20 +26,9 @@ model Category {
   id   Int    @id @default(autoincrement())
   name String @unique
 
-  categoryRecipe CategoryRecipe[]
+  Recipe Recipe[]
 
   @@map("categories")
-}
-
-model CategoryRecipe {
-  id         Int @id @default(autoincrement())
-  categoryId Int
-  recipeId   Int @unique
-
-  categories Category @relation(fields: [categoryId], references: [id])
-  recipes    Recipe   @relation(fields: [recipeId], references: [id])
-
-  @@map("categories_recipes")
 }
 
 model Recipe {
@@ -49,10 +38,11 @@ model Recipe {
   instructions String
   difficulty   Int
   userId       Int
+  categoryId   Int
 
-  users User @relation(fields: [userId], references: [id])
+  categories Category @relation(fields: [categoryId], references: [id])
+  users      User     @relation(fields: [userId], references: [id])
 
-  categoryRecipe     CategoryRecipe[]
   ingredientsRecipes IngredientRecipe[]
 
   @@unique([title, userId])
