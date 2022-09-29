@@ -6,11 +6,23 @@ import * as userRepository from "../repositories/userRepository";
 import jwtGenerator from "../utils/jwtGenerator";
 
 export async function signUpService(newUserData: INewUserData) {
-  const alreadyExist = await userRepository.findSingleUser(newUserData.email);
-  if (alreadyExist) {
+  const alreadyExistEmail = await userRepository.findSingleUser(
+    newUserData.email
+  );
+  if (alreadyExistEmail) {
     throw {
       name: "Already used",
       message: "Este email já esta cadastrado, faça seu login.",
+    };
+  }
+
+  const alreadyExistUsername = await userRepository.findSingleUserByUsername(
+    newUserData.userName
+  );
+  if (alreadyExistUsername) {
+    throw {
+      name: "Already used",
+      message: "Este username já esta cadastrado, faça seu login.",
     };
   }
 
