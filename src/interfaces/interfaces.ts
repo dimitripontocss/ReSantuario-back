@@ -1,5 +1,5 @@
 import { User } from "@prisma/client";
-export type TUser = Omit<User, "id">;
+export type TUser = Omit<User, "id" | "profilePicture">;
 
 export interface INewUserData {
   userName: string;
