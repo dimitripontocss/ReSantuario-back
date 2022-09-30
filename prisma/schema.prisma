@@ -52,6 +52,7 @@ model Recipe {
   title        String
   instructions String
   difficulty   Int
+  portions     String
   userId       Int
   categoryId   Int
 

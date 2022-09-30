@@ -1,4 +1,4 @@
-import { User, Ingredient, Recipe, NutritionalTable } from "@prisma/client";
+import { User, Ingredient, NutritionalTable, Recipe } from "@prisma/client";
 
 export type TUser = Omit<User, "id" | "profilePicture">;
 export type TIngredient = Omit<Ingredient, "id">;
@@ -23,6 +23,7 @@ export interface INewRecipeData {
   instructions: string;
   category: string;
   difficulty: number;
+  portions: string;
   ingredients: IIngredient[];
 }
 

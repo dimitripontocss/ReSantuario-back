@@ -7,4 +7,5 @@ export const recipeSchema = joi.object({
   instructions: joi.string().min(20).required(),
   difficulty: joi.number().min(1).max(5).required(),
   ingredients: joi.array().required(),
+  portions: joi.string().required(),
 });
