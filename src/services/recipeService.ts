@@ -31,6 +31,7 @@ export async function addNewRecipe(userId: number, newRecipe: INewRecipeData) {
     pictureUrl: newRecipe.pictureUrl,
     instructions: newRecipe.instructions,
     difficulty: newRecipe.difficulty,
+    portions: newRecipe.portions,
   });
   const addedNutritionalTable =
     await nutritionalTableService.addNutritionalTable(
@@ -55,7 +56,21 @@ export async function getRecipeInfo(recipeId: number) {
   );
   const score = await scoreService.getScoreByRecipeId(possibleRecipe.id);
   const user = await userService.findPossibleUserById(possibleRecipe.userId);
-  return { mainInfo: possibleRecipe, userInfo: user, ingredients, score };
+  const category = await categoryService.findCategoryById(
+    possibleRecipe.categoryId
+  );
+  const nutritionalTable =
+    await nutritionalTableService.getNutritionalTableByRecipeId(
+      possibleRecipe.id
+    );
+  return {
+    mainInfo: possibleRecipe,
+    nutritionalTable,
+    userInfo: user,
+    category,
+    ingredients,
+    score,
+  };
 }
 
 async function relateIngredientsWithRecipe(

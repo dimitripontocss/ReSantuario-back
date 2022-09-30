@@ -1,19 +1,25 @@
 import { prisma } from "../databaseStrategy/database";
 
 export async function findCategoryByName(name: string) {
-  const result = await prisma.category.findFirst({
+  return await prisma.category.findFirst({
     where: {
       name,
     },
   });
-  return result;
+}
+
+export async function findCategoryById(id: number) {
+  return await prisma.category.findFirst({
+    where: {
+      id,
+    },
+  });
 }
 
 export async function createCategory(name: string) {
-  const result = await prisma.category.create({
+  return await prisma.category.create({
     data: {
       name,
     },
   });
-  return result;
 }

@@ -9,3 +9,7 @@ export async function verifyCategory(categoryName: string) {
   const newCategory = await categoryRepository.createCategory(categoryName);
   return newCategory.id;
 }
+
+export async function findCategoryById(categoryId: number) {
+  return await categoryRepository.findCategoryById(categoryId);
+}
