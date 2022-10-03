@@ -24,7 +24,7 @@ export async function findAllIds() {
 export async function findRecipesByTitle(title: string) {
   return await prisma.recipe.findMany({
     where: {
-      title: { startsWith: title },
+      title: { startsWith: title, mode: "insensitive" },
     },
     select: {
       id: true,

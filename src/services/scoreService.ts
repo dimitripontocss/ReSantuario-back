@@ -12,5 +12,6 @@ function getAverage(scores: any) {
     totalAmount += score.score;
     quantity++;
   }
-  return totalAmount / quantity;
+  if (totalAmount === 0) return null;
+  return (totalAmount / quantity).toFixed(1);
 }
