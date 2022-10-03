@@ -1,6 +1,41 @@
 import { prisma } from "../databaseStrategy/database";
 import { TRecipe } from "../interfaces/interfaces";
 
+export async function findAllRecipes() {
+  return await prisma.recipe.findMany({
+    select: {
+      id: true,
+      pictureUrl: true,
+      title: true,
+      difficulty: true,
+      categories: true,
+    },
+  });
+}
+
+export async function findAllIds() {
+  return await prisma.recipe.findMany({
+    select: {
+      id: true,
+    },
+  });
+}
+
+export async function findRecipesByTitle(title: string) {
+  return await prisma.recipe.findMany({
+    where: {
+      title: { startsWith: title },
+    },
+    select: {
+      id: true,
+      pictureUrl: true,
+      title: true,
+      difficulty: true,
+      categories: true,
+    },
+  });
+}
+
 export async function findRecipeByTitleAndUserId(
   userId: number,
   title: string

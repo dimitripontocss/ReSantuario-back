@@ -1,4 +1,5 @@
-import { INewRecipeData } from "../interfaces/interfaces";
+import { Recipe } from "@prisma/client";
+import { INewRecipeData, IRecipeMinimalData } from "../interfaces/interfaces";
 import * as recipeRepository from "../repositories/recipeRepository";
 
 import * as categoryService from "./categoryService";
@@ -6,6 +7,22 @@ import * as ingredientService from "./ingredientService";
 import * as nutritionalTableService from "./nutritionalTableService";
 import * as scoreService from "./scoreService";
 import * as userService from "./userService";
+
+export async function getAllRecipes() {
+  const recipes = await recipeRepository.findAllRecipes();
+  return await formatResponse(recipes);
+}
+
+export async function getRandomId() {
+  const allIds = await recipeRepository.findAllIds();
+  const { id } = allIds[Math.floor(Math.random() * allIds.length)];
+  return id;
+}
+
+export async function getRecipesByTitle(title: string) {
+  const recipes = await recipeRepository.findRecipesByTitle(title);
+  return await formatResponse(recipes);
+}
 
 export async function addNewRecipe(userId: number, newRecipe: INewRecipeData) {
   const alreadyExist = await recipeRepository.findRecipeByTitleAndUserId(
@@ -84,4 +101,20 @@ async function relateIngredientsWithRecipe(
       ingredient.id
     );
   }
+}
+
+async function formatResponse(recipes: IRecipeMinimalData[]) {
+  let formatedResponse = [];
+  for (const recipe of recipes) {
+    formatedResponse.push({
+      id: recipe.id,
+      title: recipe.title,
+      pictureUrl: recipe.pictureUrl,
+      difficulty: recipe.difficulty,
+      categoryId: recipe.categories.id,
+      categoryName: recipe.categories.name,
+      score: await scoreService.getScoreByRecipeId(recipe.id),
+    });
+  }
+  return formatedResponse;
 }
