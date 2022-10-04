@@ -4,13 +4,19 @@ import {
   NutritionalTable,
   Recipe,
   Category,
+  Scores,
 } from "@prisma/client";
 
 export type TUser = Omit<User, "id" | "profilePicture">;
 export type TIngredient = Omit<Ingredient, "id">;
 export type TRecipe = Omit<Recipe, "id">;
 export type TNutritionalTable = Omit<NutritionalTable, "id">;
+export type TScore = Omit<Scores, "id">;
 
+export interface INewScoreData {
+  score: number;
+  recipeId: number;
+}
 export interface IRecipeMinimalData {
   id: number;
   pictureUrl: string;
