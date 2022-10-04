@@ -11,6 +11,7 @@ export async function addNewRecipe(req: Request, res: Response) {
 
 export async function getSingleRecipe(req: Request, res: Response) {
   const recipeId = +req.params.id;
+  console.log(recipeId);
   const recipeInfo = await recipeService.getRecipeInfo(recipeId);
   res.status(200).send(recipeInfo);
 }

@@ -32,6 +32,7 @@ export async function signUpService(newUserData: INewUserData) {
     userName: newUserData.userName,
     email: newUserData.email,
     password: cryptedPassword,
+    profilePicture: newUserData.profilePicture,
   });
 
   return;

@@ -7,7 +7,7 @@ import {
   Scores,
 } from "@prisma/client";
 
-export type TUser = Omit<User, "id" | "profilePicture">;
+export type TUser = Omit<User, "id">;
 export type TIngredient = Omit<Ingredient, "id">;
 export type TRecipe = Omit<Recipe, "id">;
 export type TNutritionalTable = Omit<NutritionalTable, "id">;
@@ -29,6 +29,7 @@ export interface INewUserData {
   email: string;
   password: string;
   passwordConfirmation: string;
+  profilePicture: string;
 }
 
 export interface IIngredient {
