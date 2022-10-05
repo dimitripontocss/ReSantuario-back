@@ -13,6 +13,19 @@ export async function findAllRecipes() {
   });
 }
 
+export async function findAllRecipesByUserId(userId: number) {
+  return await prisma.recipe.findMany({
+    where: { userId },
+    select: {
+      id: true,
+      pictureUrl: true,
+      title: true,
+      difficulty: true,
+      categories: true,
+    },
+  });
+}
+
 export async function findAllIds() {
   return await prisma.recipe.findMany({
     select: {

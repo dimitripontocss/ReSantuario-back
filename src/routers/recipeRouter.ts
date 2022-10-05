@@ -9,6 +9,7 @@ import {
   getAllRecipes,
   getRecipesByName,
   getRandomId,
+  getAllRecipesByUserId,
 } from "../controllers/recipeController";
 
 const recipeRouter = Router();
@@ -16,6 +17,8 @@ const recipeRouter = Router();
 recipeRouter.get("/recipes", getAllRecipes);
 
 recipeRouter.get("/recipe/:id", getSingleRecipe);
+
+recipeRouter.get("/recipes/:userId", getAllRecipesByUserId);
 
 recipeRouter.get("/random", getRandomId);
 

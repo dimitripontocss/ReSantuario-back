@@ -13,6 +13,11 @@ export async function getAllRecipes() {
   return await formatResponse(recipes);
 }
 
+export async function getAllRecipesByUserId(userId: number) {
+  const recipes = await recipeRepository.findAllRecipesByUserId(userId);
+  return await formatResponse(recipes);
+}
+
 export async function getRandomId() {
   const allIds = await recipeRepository.findAllIds();
   const { id } = allIds[Math.floor(Math.random() * allIds.length)];
