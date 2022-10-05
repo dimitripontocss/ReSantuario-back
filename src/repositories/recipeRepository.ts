@@ -22,6 +22,7 @@ export async function findAllRecipesByUserId(userId: number) {
       title: true,
       difficulty: true,
       categories: true,
+      viewCount: true,
     },
   });
 }
@@ -91,10 +92,13 @@ export async function deleteIngredientRecipeRelation(recipeId: number) {
   });
 }
 
-export async function tet(recipeId: number) {
-  return await prisma.ingredientRecipe.findMany({
+export async function addViewToRecipe(id: number, oldCount: number) {
+  return await prisma.recipe.update({
     where: {
-      recipeId,
+      id,
+    },
+    data: {
+      viewCount: oldCount + 1,
     },
   });
 }

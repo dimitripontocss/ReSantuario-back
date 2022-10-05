@@ -24,6 +24,15 @@ export interface IRecipeMinimalData {
   difficulty: number;
   categories: Category;
 }
+
+export interface IRecipeMinimalDataWView {
+  id: number;
+  pictureUrl: string;
+  title: string;
+  difficulty: number;
+  categories: Category;
+  viewCount: number;
+}
 export interface INewUserData {
   userName: string;
   email: string;

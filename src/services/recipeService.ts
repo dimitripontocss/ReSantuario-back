@@ -1,5 +1,9 @@
 import { Recipe } from "@prisma/client";
-import { INewRecipeData, IRecipeMinimalData } from "../interfaces/interfaces";
+import {
+  INewRecipeData,
+  IRecipeMinimalData,
+  IRecipeMinimalDataWView,
+} from "../interfaces/interfaces";
 import * as recipeRepository from "../repositories/recipeRepository";
 
 import * as categoryService from "./categoryService";
@@ -15,7 +19,7 @@ export async function getAllRecipes() {
 
 export async function getAllRecipesByUserId(userId: number) {
   const recipes = await recipeRepository.findAllRecipesByUserId(userId);
-  return await formatResponse(recipes);
+  return await formatResponseForUser(recipes);
 }
 
 export async function getRandomId() {
@@ -85,6 +89,10 @@ export async function getRecipeInfo(recipeId: number) {
     await nutritionalTableService.getNutritionalTableByRecipeId(
       possibleRecipe.id
     );
+  await recipeRepository.addViewToRecipe(
+    possibleRecipe.id,
+    possibleRecipe.viewCount
+  );
   return {
     mainInfo: possibleRecipe,
     nutritionalTable,
@@ -159,6 +167,23 @@ async function formatResponse(recipes: IRecipeMinimalData[]) {
       title: recipe.title,
       pictureUrl: recipe.pictureUrl,
       difficulty: recipe.difficulty,
+      categoryId: recipe.categories.id,
+      categoryName: recipe.categories.name,
+      score: await scoreService.getScoreByRecipeId(recipe.id),
+    });
+  }
+  return formatedResponse;
+}
+
+async function formatResponseForUser(recipes: IRecipeMinimalDataWView[]) {
+  let formatedResponse = [];
+  for (const recipe of recipes) {
+    formatedResponse.push({
+      id: recipe.id,
+      title: recipe.title,
+      pictureUrl: recipe.pictureUrl,
+      difficulty: recipe.difficulty,
+      viewCount: recipe.viewCount,
       categoryId: recipe.categories.id,
       categoryName: recipe.categories.name,
       score: await scoreService.getScoreByRecipeId(recipe.id),
