@@ -172,6 +172,15 @@ async function formatResponse(recipes: IRecipeMinimalData[]) {
       score: await scoreService.getScoreByRecipeId(recipe.id),
     });
   }
+  formatedResponse.sort((a, b) => {
+    if (a.id < b.id) {
+      return 1;
+    }
+    if (a.id > b.id) {
+      return -1;
+    }
+    return 0;
+  });
   return formatedResponse;
 }
 
@@ -189,5 +198,14 @@ async function formatResponseForUser(recipes: IRecipeMinimalDataWView[]) {
       score: await scoreService.getScoreByRecipeId(recipe.id),
     });
   }
+  formatedResponse.sort((a, b) => {
+    if (a.id < b.id) {
+      return 1;
+    }
+    if (a.id > b.id) {
+      return -1;
+    }
+    return 0;
+  });
   return formatedResponse;
 }
