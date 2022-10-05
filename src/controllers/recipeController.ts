@@ -11,7 +11,6 @@ export async function addNewRecipe(req: Request, res: Response) {
 
 export async function getSingleRecipe(req: Request, res: Response) {
   const recipeId = +req.params.id;
-  console.log(recipeId);
   const recipeInfo = await recipeService.getRecipeInfo(recipeId);
   res.status(200).send(recipeInfo);
 }
@@ -21,15 +20,8 @@ export async function getAllRecipes(req: Request, res: Response) {
   res.status(200).send(recipeInfo);
 }
 
-export async function getAllRecipesByUserId(req: Request, res: Response) {
-  const userId = +req.params.userId;
-  const recipeInfo = await recipeService.getAllRecipesByUserId(userId);
-  res.status(200).send(recipeInfo);
-}
-
 export async function getRecipesByName(req: Request, res: Response) {
   const title = req.params.title;
-  console.log(title);
   const recipeInfo = await recipeService.getRecipesByTitle(title);
   res.status(200).send(recipeInfo);
 }
