@@ -95,6 +95,12 @@ export async function getRecipeInfo(recipeId: number) {
   };
 }
 
+export async function getUserAverageRecipeScore(userId: number) {
+  const recipes = await recipeRepository.findAllRecipesByUserId(userId);
+  const average = await getAverage(recipes);
+  return average;
+}
+
 async function relateIngredientsWithRecipe(
   ingredients: any[],
   recipeId: number
@@ -106,6 +112,19 @@ async function relateIngredientsWithRecipe(
       ingredient.id
     );
   }
+}
+
+async function getAverage(recipes: IRecipeMinimalData[]) {
+  let total = 0;
+  let quantity = 0;
+  for (const recipe of recipes) {
+    const { average: recipeScore } = await scoreService.getScoreByRecipeId(
+      recipe.id
+    );
+    total += +recipeScore;
+    quantity++;
+  }
+  return total / quantity;
 }
 
 async function formatResponse(recipes: IRecipeMinimalData[]) {

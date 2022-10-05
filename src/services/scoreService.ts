@@ -3,7 +3,6 @@ import * as scoreRepository from "../repositories/scoresRepository";
 
 export async function getScoreByRecipeId(recipeId: number) {
   const result = await scoreRepository.getScoreByRecipeId(recipeId);
-  console.log(result);
   return { average: getAverage(result), scores: result };
 }
 

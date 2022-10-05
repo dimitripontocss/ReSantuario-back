@@ -1,11 +1,11 @@
 import { Router } from "express";
 
-import authRouter from "./authRouter";
+import userRouter from "./userRouter";
 import recipeRouter from "./recipeRouter";
 import scoreRouter from "./scoreRouter";
 
 const indexRouter = Router();
 
-indexRouter.use([authRouter, recipeRouter, scoreRouter]);
+indexRouter.use([userRouter, recipeRouter, scoreRouter]);
 
 export default indexRouter;
