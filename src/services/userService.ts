@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 
 import { INewUserData, TUser } from "../interfaces/interfaces";
 import * as userRepository from "../repositories/userRepository";
+import * as recipeService from "./recipeService";
 import jwtGenerator from "../utils/jwtGenerator";
 
 export async function signUpService(newUserData: INewUserData) {
@@ -68,6 +69,13 @@ export async function findPossibleUserById(userId: number) {
   if (!user) throw { name: "not_found", message: "User not found" };
 
   return user;
+}
+
+export async function findAllInfoByUserId(userId: number) {
+  const user = await findPossibleUserById(userId);
+  const average = await recipeService.getUserAverageRecipeScore(userId);
+  const recipes = await recipeService.getAllRecipesByUserId(userId);
+  return { user, average, recipes };
 }
 
 // export async function sendEmails(teacher: string,category: string,name: string,discipline: string) {
