@@ -17,6 +17,10 @@ export async function registerScore(userId: number, scoreData: INewScoreData) {
   return await scoreRepository.createNewScore({ ...scoreData, userId });
 }
 
+export async function deleteScores(recipeId: number) {
+  await scoreRepository.deleteScores(recipeId);
+}
+
 function getAverage(scores: any) {
   let totalAmount = 0;
   let quantity = 0;

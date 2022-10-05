@@ -14,3 +14,7 @@ export async function findNTableByRecipeId(recipeId: number) {
     where: { recipeId },
   });
 }
+
+export async function deleteNutritionalTable(recipeId: number) {
+  await prisma.nutritionalTable.delete({ where: { recipeId } });
+}

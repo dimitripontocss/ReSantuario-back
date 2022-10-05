@@ -9,6 +9,7 @@ import {
   getAllRecipes,
   getRecipesByName,
   getRandomId,
+  deleteRecipe,
 } from "../controllers/recipeController";
 
 const recipeRouter = Router();
@@ -27,5 +28,7 @@ recipeRouter.post(
   schemasMiddleware(recipeSchema),
   addNewRecipe
 );
+
+recipeRouter.delete("/recipe/:recipeId", jtwAuth, deleteRecipe);
 
 export default recipeRouter;

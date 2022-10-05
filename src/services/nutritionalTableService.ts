@@ -24,3 +24,7 @@ export async function addNutritionalTable(recipeId: number, ingredients: any) {
 export async function getNutritionalTableByRecipeId(recipeId: number) {
   return await nutritionalTableRepository.findNTableByRecipeId(recipeId);
 }
+
+export async function deleteNutritionalTable(recipeId: number) {
+  await nutritionalTableRepository.deleteNutritionalTable(recipeId);
+}

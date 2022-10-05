@@ -30,3 +30,10 @@ export async function getRandomId(req: Request, res: Response) {
   const id = await recipeService.getRandomId();
   res.status(200).send({ id });
 }
+
+export async function deleteRecipe(req: Request, res: Response) {
+  const recipeId = +req.params.recipeId;
+  const user = res.locals.user;
+  await recipeService.deleteRecipeAndRelations(user.id, recipeId);
+  res.sendStatus(200);
+}

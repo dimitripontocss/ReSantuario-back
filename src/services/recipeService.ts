@@ -101,6 +101,30 @@ export async function getUserAverageRecipeScore(userId: number) {
   return average;
 }
 
+export async function deleteRecipeAndRelations(
+  userId: number,
+  recipeId: number
+) {
+  const possibleRecipe = await recipeRepository.findRecipeById(recipeId);
+  if (!possibleRecipe) {
+    throw {
+      name: "not_found",
+      message: "Receita não foi encontrada",
+    };
+  }
+  if (possibleRecipe.userId !== userId) {
+    throw {
+      name: "auth_error",
+      message: "Essa receita não é desse usuário",
+    };
+  }
+
+  await scoreService.deleteScores(possibleRecipe.id);
+  await recipeRepository.deleteIngredientRecipeRelation(possibleRecipe.id);
+  await nutritionalTableService.deleteNutritionalTable(possibleRecipe.id);
+  await recipeRepository.deleteRecipe(possibleRecipe.id);
+}
+
 async function relateIngredientsWithRecipe(
   ingredients: any[],
   recipeId: number

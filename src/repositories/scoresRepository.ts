@@ -40,3 +40,7 @@ export async function createNewScore(scoreData: TScore) {
     data: scoreData,
   });
 }
+
+export async function deleteScores(recipeId: number) {
+  await prisma.scores.deleteMany({ where: { recipeId } });
+}
