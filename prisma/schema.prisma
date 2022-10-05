@@ -17,6 +17,8 @@ model User {
   password       String
   profilePicture String?
 
+  createdAt DateTime @default(now())
+
   recipes Recipe[]
   Scores  Scores[]
 
@@ -55,6 +57,9 @@ model Recipe {
   portions     String
   userId       Int
   categoryId   Int
+  viewCount    Int    @default(0)
+
+  createdAt DateTime @default(now())
 
   categories Category @relation(fields: [categoryId], references: [id])
   users      User     @relation(fields: [userId], references: [id])

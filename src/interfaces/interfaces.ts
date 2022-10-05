@@ -7,9 +7,9 @@ import {
   Scores,
 } from "@prisma/client";
 
-export type TUser = Omit<User, "id">;
+export type TUser = Omit<User, "id" | "createdAt">;
 export type TIngredient = Omit<Ingredient, "id">;
-export type TRecipe = Omit<Recipe, "id">;
+export type TRecipe = Omit<Recipe, "id" | "createdAt" | "viewCount">;
 export type TNutritionalTable = Omit<NutritionalTable, "id">;
 export type TScore = Omit<Scores, "id">;
 
