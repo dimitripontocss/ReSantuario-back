@@ -60,7 +60,7 @@ export async function signInService(userData: TUser) {
 
   const token = jwtGenerator(possibleUser.id);
 
-  return { token, userName: possibleUser.userName };
+  return { token, userName: possibleUser.userName, userId: possibleUser.id };
 }
 
 export async function findPossibleUserById(userId: number) {
