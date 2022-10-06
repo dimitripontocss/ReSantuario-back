@@ -27,6 +27,19 @@ export async function findAllRecipesByUserId(userId: number) {
   });
 }
 
+export async function findAllRecipesByCategoryId(categoryId: number) {
+  return await prisma.recipe.findMany({
+    where: { categoryId },
+    select: {
+      id: true,
+      pictureUrl: true,
+      title: true,
+      difficulty: true,
+      categories: true,
+    },
+  });
+}
+
 export async function findAllIds() {
   return await prisma.recipe.findMany({
     select: {
@@ -79,12 +92,10 @@ export async function createNewRecipe(newRecipe: TRecipe) {
 }
 
 export async function deleteRecipe(id: number) {
-  console.log("receita");
   return await prisma.recipe.delete({ where: { id } });
 }
 
 export async function deleteIngredientRecipeRelation(recipeId: number) {
-  console.log("ingre reci");
   return await prisma.ingredientRecipe.deleteMany({
     where: {
       recipeId,
