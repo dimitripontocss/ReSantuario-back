@@ -3,6 +3,7 @@ import axios from "axios";
 import { IIngredient } from "../interfaces/interfaces";
 
 import * as ingredientRepository from "../repositories/ingredientRepository";
+import * as ingredientDatabase from "../databaseStrategy/ingredientsDatabase/data/ingredientsInfo";
 
 export async function verifyIngredients(ingredients: IIngredient[]) {
   let ingredientsWInfo = [];
@@ -46,10 +47,10 @@ async function getIngredientInfo(ingredient: IIngredient) {
     };
   }
 
-  //Vai virar função
-  const { data: newIngredientInfo } = await axios.get(
-    `http://localhost:9500/ingredients/${ingredient.name}`
+  const newIngredientInfo = await ingredientDatabase.getIngredientInfo(
+    ingredient.name
   );
+
   let creatableIngredient = {
     name: ingredient.name,
     kCalPerG: null,
@@ -61,14 +62,15 @@ async function getIngredientInfo(ingredient: IIngredient) {
     creatableIngredient = {
       name: ingredient.name.toLowerCase(),
       kCalPerG: String(newIngredientInfo.per100g.kcal / 100),
-      proteinPerG: String(newIngredientInfo.per100g.protein / 100),
-      lipidPerG: String(newIngredientInfo.per100g.lipid / 100),
+      proteinPerG: String(Number(newIngredientInfo.per100g.protein) / 100),
+      lipidPerG: String(Number(newIngredientInfo.per100g.lipid) / 100),
       carbsPerG: String(newIngredientInfo.per100g.carbohydrate / 100),
     };
   }
   const addedIngredient = await ingredientRepository.addIngredient(
     creatableIngredient
   );
+
   return {
     id: addedIngredient.id,
     name: addedIngredient.name,
