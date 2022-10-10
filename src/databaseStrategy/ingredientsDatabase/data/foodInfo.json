@@ -200,6 +200,16 @@
       }
    },
    {
+      "id":458,
+      "name":"leite de vaca integral",
+      "per100g":{
+         "kcal":0,
+         "protein":0,
+         "carbohydrate":0,
+         "lipid":0
+      }
+   },
+   {
       "id":19,
       "name":"canjica branca crua",
       "per100g":{
@@ -880,6 +890,16 @@
       }
    },
    {
+      "id":91,
+      "name":"batata inglesa cozida",
+      "per100g":{
+         "kcal":51.5884766362707,
+         "protein":1.16458333333333,
+         "carbohydrate":11.94375,
+         "lipid":"Tr"
+      }
+   },
+   {
       "id":86,
       "name":"batata baroa cozida",
       "per100g":{
@@ -927,16 +947,6 @@
          "protein":5.58333333333333,
          "carbohydrate":51.2223333333333,
          "lipid":36.615
-      }
-   },
-   {
-      "id":91,
-      "name":"batata inglesa cozida",
-      "per100g":{
-         "kcal":51.5884766362707,
-         "protein":1.16458333333333,
-         "carbohydrate":11.94375,
-         "lipid":"Tr"
       }
    },
    {
@@ -4582,16 +4592,6 @@
    {
       "id":457,
       "name":"leite de vaca desnatado uht",
-      "per100g":{
-         "kcal":0,
-         "protein":0,
-         "carbohydrate":0,
-         "lipid":0
-      }
-   },
-   {
-      "id":458,
-      "name":"leite de vaca integral",
       "per100g":{
          "kcal":0,
          "protein":0,
