@@ -15,6 +15,22 @@ This API is used to power the best recipes site all over the internet. If you wa
 
 ---
 
+## :clipboard: Usefull links
+
+If you wnat to use our API server alone use this link:
+
+https://resantuario-back.onrender.com
+
+If you wnat a complete experience visit our deployed page:
+
+https://resantuario.vercel.app/
+
+If you want to see more about our Front end fell free to visit our repository:
+
+https://github.com/dimitripontocss/projeto22-ReSantuario-front
+
+---
+
 ## :computer: Tecnologies used
 
 - REST APIs
@@ -37,7 +53,7 @@ POST /signup
         "email": "lorem@gmail.com",
         "password": "loremipsum",
         "passwordConfirmation": "loremipsum"
-}
+    }
 ```
 
 ```yml
