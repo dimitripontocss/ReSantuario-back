@@ -6,7 +6,7 @@
 
 <p align = "center">
    <img src="https://img.shields.io/badge/author-dimitripontocss-4dae71?style=flat-square" />
-   <img src="https://img.shields.io/github/languages/count/dimitripontocss/projeto20-repoprovas?color=4dae71&style=flat-square" />
+   <img src="https://img.shields.io/github/languages/count/dimitripontocss/projeto22-ReSantuario-back?color=4dae71&style=flat-square" />
 </p>
 
 ## :clipboard: Description
@@ -17,11 +17,11 @@ This API is used to power the best recipes site all over the internet. If you wa
 
 ## :clipboard: Usefull links
 
-If you wnat to use our API server alone use this link:
+If you want to use our API server alone use this link:
 
 https://resantuario-back.onrender.com
 
-If you wnat a complete experience visit our deployed page:
+If you want a complete experience visit our deployed page:
 
 https://resantuario.vercel.app/
 
