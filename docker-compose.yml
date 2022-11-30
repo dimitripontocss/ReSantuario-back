@@ -6,7 +6,7 @@ services:
     ports:
       - 4457:5432
     env_file:
-      - .env
+      - .env.docker
     volumes: 
       - pg_resantuario-db:/var/lib/postgresql/data
 
@@ -18,7 +18,7 @@ services:
     depends_on:
       - postgres_resantuario_db
     env_file:
-      - .env
+      - .env.docker
 
 volumes:
   pg_resantuario-db:
